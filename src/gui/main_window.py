@@ -5,6 +5,7 @@ from PySide2.QtGui import QFont, QPalette, QColor
 from .input_panel import InputPanel
 from .plot_widget import PlotWidget
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()

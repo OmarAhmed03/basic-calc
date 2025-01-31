@@ -53,8 +53,8 @@ class EquationSolver:
             print(f"Found solutions: {solutions}")
             
             # Prepare plot data
-            x_min = min(solutions) - 3*min(solutions) if solutions else -10.0
-            x_max = max(solutions) + 3*max(solutions) if solutions else 10.0
+            x_min = min(solutions) - (np.abs(3*min(solutions)) if min(solutions)==0 else 3) if solutions else -10.0
+            x_max = max(solutions) + (np.abs(3*min(solutions)) if min(solutions)==0 else 3) if solutions else 10.0
             
             x_vals = np.linspace(x_min, x_max, 1000)
             y1_vals = np.array([self.evaluate_function(func1_str, x_val) for x_val in x_vals])
