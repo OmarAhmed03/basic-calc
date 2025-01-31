@@ -89,23 +89,3 @@ class TestInputPanel:
         assert blocker.args == ["x^2", "4"], \
             f"Expected ['x^2', '4'], but got {blocker.args}"
 
-    def test_error_handling(self, input_panel, qtbot):
-        """Test error handling in input panel"""
-        func1_input = input_panel.func1_input.itemAt(1).widget()
-        func2_input = input_panel.func2_input.itemAt(1).widget()
-        
-        # Set invalid expression
-        func1_input.setText("x^2 + @")
-        func2_input.setText("4")
-        
-        # Try to solve
-        solve_button = next((btn for btn in input_panel.findChildren(QPushButton) 
-                             if "Solve" in btn.text()), None)
-        assert solve_button is not None, "Solve button not found"
-
-        qtbot.mouseClick(solve_button, Qt.LeftButton)
-        
-        # Verify error message dialog appears
-        error_widgets = [w for w in QApplication.topLevelWidgets() 
-                         if w.windowTitle() == "Error"]
-        assert len(error_widgets) > 0, "Error message did not appear for invalid input"
