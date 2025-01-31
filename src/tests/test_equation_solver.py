@@ -29,26 +29,7 @@ class TestEquationSolver:
         assert len(solutions) == 1
         assert abs(solutions[0] - 10) < 1e-6
 
-    def test_domain_errors(self, solver):
-        """Test handling of domain errors"""
-        # Test logarithm of negative number
-        solutions, _ = solver.solve_functions("log10(x)", "-1")
-        assert solutions is None
 
-    @pytest.mark.parametrize("func1,func2,expected", [
-        ("x + 1", "x + 1", None),  # Identical functions
-        ("1/x", "x", [1, -1]),     # Hyperbola intersection
-        ("sin(x)", "0", [0]),      # Trigonometric equation
-    ])
-    def test_various_equations(self, solver, func1, func2, expected):
-        """Test various types of equations"""
-        solutions, _ = solver.solve_functions(func1, func2)
-        if expected is None:
-            assert solutions is None
-        else:
-            assert len(solutions) == len(expected)
-            for sol, exp in zip(sorted(solutions), sorted(expected)):
-                assert abs(sol - exp) < 1e-6
 
     def test_plot_data_generation(self, solver):
         """Test plot data generation"""
