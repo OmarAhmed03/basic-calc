@@ -2,7 +2,7 @@
 import numpy as np
 from sympy import symbols, sympify, solve, log
 from .expression_parser import ExpressionParser
-
+import re
 class EquationSolver:
     def __init__(self):
         self.parser = ExpressionParser()
@@ -16,8 +16,6 @@ class EquationSolver:
                 return np.nan
                 
             # Convert log10 to log base 10
-            expr_str = expr_str.replace('log10(', 'log(')
-            
             x = symbols('x')
             expr = sympify(expr_str)
             result = float(expr.subs(x, x_val))

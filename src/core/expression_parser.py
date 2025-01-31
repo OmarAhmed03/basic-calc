@@ -52,6 +52,7 @@ class ExpressionParser:
         expr = re.sub(r'(\d+)([a-zA-Z])', r'\1*\2', expr)  # 15x -> 15*x
         expr = re.sub(r'(\))([a-zA-Z0-9])', r'\1*\2', expr)  # )x -> )*x
         expr = re.sub(r'(\d)(\()', r'\1*\2', expr)  # 5( -> 5*(
+        expr= re.sub(r'log\((.*?)\)', r'log(\1, 10)', expr)
         
         
         return expr
