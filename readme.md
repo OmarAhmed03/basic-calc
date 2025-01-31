@@ -41,6 +41,12 @@ To run the tests, use:
 ```sh
 pytest
 ```
+## Snapshots
+
+![image](https://github.com/user-attachments/assets/3c781877-1637-4be1-af98-1912b7aa9c21)
+
+![image](https://github.com/user-attachments/assets/612df8ae-a2c3-4538-ae8b-1875bdd800ab)
+
 
 ## License
 
