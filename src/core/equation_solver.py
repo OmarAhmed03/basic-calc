@@ -20,8 +20,10 @@ class EquationSolver:
             expr = sympify(expr_str)
             result = float(expr.subs(x, x_val))
             
-            if np.isnan(result) or np.isinf(result):
+            if np.isnan(result):
                 return np.nan
+            elif np.isinf(result):
+                return 100 if result>0 else -100
             return result
         except (ValueError, TypeError, ZeroDivisionError) as e:
             print(f"Error evaluating {expr_str} at x={x_val}: {str(e)}")
@@ -51,8 +53,8 @@ class EquationSolver:
             print(f"Found solutions: {solutions}")
             
             # Prepare plot data
-            x_min = min(solutions) - (np.abs(3*min(solutions)) if min(solutions)==0 else 3) if solutions else -10.0
-            x_max = max(solutions) + (np.abs(3*min(solutions)) if min(solutions)==0 else 3) if solutions else 10.0
+            x_min = min(solutions) - 1 if solutions else -10.0
+            x_max = max(solutions) + 1 if solutions else 10.0
             
             x_vals = np.linspace(x_min, x_max, 1000)
             y1_vals = np.array([self.evaluate_function(func1_str, x_val) for x_val in x_vals])
