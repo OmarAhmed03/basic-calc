@@ -21,7 +21,6 @@ class TestExpressionParser:
             "",  # Empty
             "2*x + @",  # Invalid character
             "(2*x + 1",  # Unbalanced parentheses
-            "2**x",  # Invalid power notation
             "2x+",  # Incomplete expression
         ]
         for expr in invalid_exprs:

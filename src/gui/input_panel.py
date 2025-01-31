@@ -172,8 +172,8 @@ class InputPanel(QWidget):
 
     def _clear_input(self):
         """Clear the active input field."""
-        if self.active_input:
-            self.active_input.clear()
+        self.func1_input.itemAt(1).widget().clear()
+        self.func2_input.itemAt(1).widget().clear()
             
     def _on_solve_clicked(self):
         """Handle solve button click."""

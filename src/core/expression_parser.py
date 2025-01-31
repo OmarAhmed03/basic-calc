@@ -9,24 +9,28 @@ class ExpressionParser:
         
     def validate_expression(self, expr):
         """
-        Validate a mathematical expression.
+        Validate a mathematical expression before processing.
         """
-        if not expr:
+        if not expr.strip():
             return False, "Expression cannot be empty"
-            
-        # Remove valid functions from expression for checking
+
+        # Remove valid function names before checking
         temp_expr = expr
         for func in self.valid_funcs:
             temp_expr = temp_expr.replace(func, '')
-            
-        # Check remaining characters
+
+        # Check for invalid characters
         if not all(c in self.valid_chars for c in temp_expr):
             return False, "Invalid characters in expression"
-            
-        # Check balanced parentheses
+
+        # Check for balanced parentheses
         if expr.count('(') != expr.count(')'):
             return False, "Unbalanced parentheses"
-            
+
+        # 🚨 **New Check: Prevent invalid endings like '2x+' or 'x-('**
+        if re.search(r'[\+\-\*/^]$', expr.strip()):
+            return False, "Expression cannot end with an operator"
+
         return True, ""
         
     def validate_both_expressions(self, expr1, expr2):
@@ -49,10 +53,12 @@ class ExpressionParser:
         expr = expr.replace('^', '**')
         
         # Add multiplication symbols
+        expr = re.sub(r'(\))\s*(\()', r'\1*\2', expr)
         expr = re.sub(r'(\d+)([a-zA-Z])', r'\1*\2', expr)  # 15x -> 15*x
         expr = re.sub(r'(\))([a-zA-Z0-9])', r'\1*\2', expr)  # )x -> )*x
         expr = re.sub(r'(\d)(\()', r'\1*\2', expr)  # 5( -> 5*(
         expr= re.sub(r'log\((.*?)\)', r'log(\1, 10)', expr)
+        expr = expr.replace('x(', 'x*(')
         
         
         return expr
